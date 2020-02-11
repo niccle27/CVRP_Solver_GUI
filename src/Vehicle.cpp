@@ -19,7 +19,6 @@ void Vehicle::print_list()const
 			std::cout << ",";
 		}
 	}
-	std::cout << std::endl;
 }
 bool Vehicle::addNode(Node* t_node, Node* neighbour = nullptr)
 {

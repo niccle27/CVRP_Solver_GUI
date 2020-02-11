@@ -4,8 +4,8 @@
 
 class Vehicle
 {
-private:
-	static const int capacityMax = 35;
+public:
+	static const int capacityMax = 40;
 public:
 	Vehicle(Node* t_customer1);
 	Vehicle(Node* t_customer1, Node* t_customer2);

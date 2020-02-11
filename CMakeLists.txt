@@ -7,8 +7,13 @@ cmake_minimum_required(VERSION 3.0)
 project (clarkeAndWright)
 
 # Create a sources variable with a link to all cpp files to compile
+
 set(SOURCES
     src/clarkeAndWright.cpp
+    src/clarkeAndWrightSequential.cpp
+    src/CVRP_instance.cpp
+    src/CVRP_Solution.cpp
+    src/CW_Solver.cpp
     src/Node.cpp
     src/Saving.cpp
     src/Vehicle.cpp

@@ -13,6 +13,9 @@
 #include "CVRP_instance.h"
 #include "CW_Solver.h"
 #include "CVRP_Solution.h"
+#include "json.hpp"
+#include <string>
+#include <iostream>
 
 //int get_distance_node2node(int id_node1, int id_node2, const std::vector<std::vector<int>>& distanceMatrix);
 //void show_matrix(const std::vector<std::vector<int>>& distanceMatrix);
@@ -34,24 +37,47 @@ int main()
 	//std::vector<int>{18 ,17 ,5  ,13 ,17 ,18 ,10 ,20 ,0  ,5}  ,
 	//std::vector<int>{6  ,14 ,8  ,2  ,18 ,10 ,3  ,19 ,5  ,0} };
 
-	std::vector<int> demands{ 10,15,18,17,3,5,9,4,6};
+//	std::vector<int> demands{ 10,15,18,17,3,5,9,4,6};
 	//Vehicle::capacityMax = 40;
-	std::vector<std::vector<int>> distanceMatrix{
-	std::vector<int>{0  ,12 ,11  ,7  ,10 ,10 ,9  ,8  ,6  ,12} ,
-	std::vector<int>{12 ,0  ,8   ,5  ,9  ,12 ,14 ,16 ,17 ,22} ,
-	std::vector<int>{11 ,8  ,0   ,9  ,15 ,17 ,8  ,18 ,14 ,22} ,
-	std::vector<int>{7  ,5  ,9   ,0  ,7  ,9  ,11 ,12 ,12 ,17} ,
-	std::vector<int>{10 ,9  ,15  ,7  ,0  ,3  ,17 ,7  ,15 ,18} ,
-	std::vector<int>{10 ,12 ,17  ,9  ,3  ,0  ,18 ,6  ,15 ,15} ,
-	std::vector<int>{9  ,14 ,8   ,11 ,17 ,18 ,0  ,16 ,8  ,16} ,
-	std::vector<int>{8  ,16 ,18  ,12 ,7  ,6  ,16 ,0  ,11 ,11} ,
-	std::vector<int>{6  ,17 ,14  ,12 ,15 ,15 ,8  ,11 ,0  ,10} ,
-	std::vector<int>{12 ,22 , 22 ,17 ,18 ,15 ,6  ,11 ,10 ,0} };
 
-	CVRP_instance instance(demands, distanceMatrix);
-	CW_Solver cw_solver;
-	CVRP_Solution* solution = cw_solver.solve(instance);
-	solution->print();
-	delete solution;
+//	std::vector<std::vector<int>> distanceMatrix{
+//	std::vector<int>{0  ,12 ,11  ,7  ,10 ,10 ,9  ,8  ,6  ,12} ,
+//	std::vector<int>{12 ,0  ,8   ,5  ,9  ,12 ,14 ,16 ,17 ,22} ,
+//	std::vector<int>{11 ,8  ,0   ,9  ,15 ,17 ,8  ,18 ,14 ,22} ,
+//	std::vector<int>{7  ,5  ,9   ,0  ,7  ,9  ,11 ,12 ,12 ,17} ,
+//	std::vector<int>{10 ,9  ,15  ,7  ,0  ,3  ,17 ,7  ,15 ,18} ,
+//	std::vector<int>{10 ,12 ,17  ,9  ,3  ,0  ,18 ,6  ,15 ,15} ,
+//	std::vector<int>{9  ,14 ,8   ,11 ,17 ,18 ,0  ,16 ,8  ,16} ,
+//	std::vector<int>{8  ,16 ,18  ,12 ,7  ,6  ,16 ,0  ,11 ,11} ,
+//	std::vector<int>{6  ,17 ,14  ,12 ,15 ,15 ,8  ,11 ,0  ,10} ,
+//	std::vector<int>{12 ,22 , 22 ,17 ,18 ,15 ,6  ,11 ,10 ,0} };
+    // for convenience
+    using json = nlohmann::json;
+    std::string testJson=R"foo({
+                         "distances": [
+                           [0, 12, 11, 7, 10, 10, 9, 8, 6, 12],
+                           [12, 0, 8, 5, 9, 12, 14, 16, 17, 22],
+                           [11, 8, 0, 9, 15, 17, 8, 18, 14, 22],
+                           [7, 5, 9, 0, 7, 9, 11, 12, 12, 17],
+                           [10, 9, 15, 7, 0, 3, 17, 7, 15, 18],
+                           [10, 12, 17, 9, 3, 0, 18, 6, 15, 15],
+                           [9, 14, 8, 11, 17, 18, 0, 16, 8, 16],
+                           [8, 16, 18, 12, 7, 6, 16, 0, 11, 11],
+                           [6, 17, 14, 12, 15, 15, 8, 11, 0, 10],
+                           [12, 22, 22, 17, 18, 15, 6, 11, 10, 0]
+                         ],
+                         "demands": [10, 15, 18, 17, 3, 5, 9, 4, 6]
+                       })foo";
+//    std::cout<<testJson;
+    auto jsonParse=json::parse(testJson);
+    auto demands = jsonParse["demands"];
+    auto distanceMatrix = jsonParse["distances"];
+
+
+    CVRP_instance instance(demands, distanceMatrix);
+    CW_Solver cw_solver;
+    CVRP_Solution* solution = cw_solver.solve(instance);
+    solution->print();
+    delete solution;
 //	system("pause");
 }

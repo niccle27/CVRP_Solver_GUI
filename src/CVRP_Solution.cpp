@@ -21,6 +21,16 @@ void CVRP_Solution::print() const
 	}
 }
 
+std::vector<std::vector<int>> CVRP_Solution::toVector()
+{
+	std::vector<std::vector<int>> v_vehicles;
+	for (int i = 0; i < m_list_vehicles.size(); ++i)
+	{
+		v_vehicles.push_back(m_list_vehicles[i]->getVectorOfIds());		
+	}
+	return v_vehicles;
+}
+
 CVRP_Solution::CVRP_Solution()
 {
 }

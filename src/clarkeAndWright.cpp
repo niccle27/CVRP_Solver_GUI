@@ -1,7 +1,7 @@
 // clarkeAndWright.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-//#include <iostream>
+#include <iostream>
 //#include <vector>
 //#include <iomanip>
 //#include "Node.h"
@@ -14,8 +14,7 @@
 #include "CW_Solver.h"
 #include "CVRP_Solution.h"
 #include "json.hpp"
-#include <string>
-#include <iostream>
+using json = nlohmann::json;
 
 //int get_distance_node2node(int id_node1, int id_node2, const std::vector<std::vector<int>>& distanceMatrix);
 //void show_matrix(const std::vector<std::vector<int>>& distanceMatrix);
@@ -23,6 +22,8 @@
 
 int main()
 {
+
+
 	//std::vector<int> demands{ 3, 20, 1, 14, 8, 2, 6, 12, 9 };
 
 	//std::vector<std::vector<int>> distanceMatrix{
@@ -72,12 +73,14 @@ int main()
     auto jsonParse=json::parse(testJson);
     auto demands = jsonParse["demands"];
     auto distanceMatrix = jsonParse["distances"];
-
-
-    CVRP_instance instance(demands, distanceMatrix);
-    CW_Solver cw_solver;
-    CVRP_Solution* solution = cw_solver.solve(instance);
-    solution->print();
-    delete solution;
+	CVRP_instance instance(demands, distanceMatrix);
+	CW_Solver cw_solver;
+	CVRP_Solution* solution = cw_solver.solve(instance);
+	// solution->print();
+	std::vector<std::vector<int>> test = solution->toVector();
+	json j;
+	j["vehicles"] = test;
+    std::cout << j.dump()<<std::endl;
+	delete solution;
 //	system("pause");
 }

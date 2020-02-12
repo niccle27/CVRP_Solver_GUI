@@ -20,6 +20,15 @@ void Vehicle::print_list()const
 		}
 	}
 }
+std::vector<int> Vehicle::getVectorOfIds()
+{
+	std::vector<int> vectorOfIds;
+	for (auto it = list_customers.begin(); it != list_customers.end(); ++it)
+	{
+		vectorOfIds.push_back((*it)->getId());
+	}
+	return vectorOfIds;
+}
 bool Vehicle::addNode(Node* t_node, Node* neighbour = nullptr)
 {
 	if (!is_enough_capacity_left(t_node->getDemand()))

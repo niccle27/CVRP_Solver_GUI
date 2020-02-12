@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 #include "Node.h"
-
+#include <vector>
 class Vehicle
 {
 public:
@@ -12,6 +12,8 @@ public:
 	~Vehicle();
 	bool addNode(Node* t_node, Node* neighbour);
 	void print_list()const;
+	std::vector<int> getVectorOfIds();
+
 private:
 	int capacity;
 	std::list<Node*> list_customers;

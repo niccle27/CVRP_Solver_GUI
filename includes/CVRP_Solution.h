@@ -11,6 +11,7 @@ public:
 	std::vector<Vehicle*> get_list_vehicles() { return m_list_vehicles; };
 	void add_vehicle(Vehicle* vehicle);
 	void print()const;
+	std::vector<std::vector<int>> toVector();
 public:
 	CVRP_Solution();
 	CVRP_Solution(std::vector<Vehicle*> t_list_vehicles);

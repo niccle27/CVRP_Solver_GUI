@@ -30,7 +30,7 @@ CVRP_Solution* CW_Solver::solve(const CVRP_instance& instance)
 	}
 
 	std::sort(m_list_saving.begin(), m_list_saving.end(), std::greater<Saving>());
-	show_savings(); // IF DISPLAY
+//	show_savings(); // IF DISPLAY
 
 	int numberOfCustomer = instance.get_number_of_customers();
 	//std::vector<Vehicle*> list_vehicles;

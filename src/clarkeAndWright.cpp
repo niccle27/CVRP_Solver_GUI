@@ -20,7 +20,7 @@ using json = nlohmann::json;
 //void show_matrix(const std::vector<std::vector<int>>& distanceMatrix);
 //void show_savings(const std::vector<Saving>& list_Saving);
 
-int main()
+int main(int argc, char** argv)
 {
 
 
@@ -70,7 +70,9 @@ int main()
                          "demands": [10, 15, 18, 17, 3, 5, 9, 4, 6]
                        })foo";
 //    std::cout<<testJson;
-    auto jsonParse=json::parse(testJson);
+
+//    auto jsonParse=json::parse(testJson);
+    auto jsonParse=json::parse(argv[1]);
     auto demands = jsonParse["demands"];
     auto distanceMatrix = jsonParse["distances"];
 	CVRP_instance instance(demands, distanceMatrix);

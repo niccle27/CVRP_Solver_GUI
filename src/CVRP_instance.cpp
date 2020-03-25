@@ -47,6 +47,10 @@ void CVRP_instance::set_list_nodes(std::vector<int> t_demands)
 	}
 }
 
+void CVRP_instance::setMaxCapacityPerVehicle(int t_maxCapacityPerVehicle){
+    m_maxCapacityPerVehicle=t_maxCapacityPerVehicle;
+}
+
 CVRP_instance::~CVRP_instance()
 {
 	for (auto it = m_vNodes.begin(); it != m_vNodes.end(); ++it)
@@ -61,11 +65,12 @@ CVRP_instance::CVRP_instance()
 	m_vNodes.push_back(depot);
 }
 
-CVRP_instance::CVRP_instance(std::vector<int> t_demands, std::vector<std::vector<int>> t_distanceMatrix)
+CVRP_instance::CVRP_instance(std::vector<int> t_demands, std::vector<std::vector<int>> t_distanceMatrix, int t_maxCapacityPerVehicle)
 {
 	Node* depot = new Node(0, 0);
 	m_vNodes.push_back(depot);
 	//CVRP_instance::CVRP_instance();
 	set_list_nodes(t_demands);
 	setDistanceMatrix(t_distanceMatrix);
+    setMaxCapacityPerVehicle(t_maxCapacityPerVehicle);
 }

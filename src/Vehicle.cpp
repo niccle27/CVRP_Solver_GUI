@@ -23,10 +23,12 @@ void Vehicle::print_list()const
 std::vector<int> Vehicle::getVectorOfIds()
 {
 	std::vector<int> vectorOfIds;
+    vectorOfIds.push_back(0); // leave from depot
 	for (auto it = list_customers.begin(); it != list_customers.end(); ++it)
 	{
 		vectorOfIds.push_back((*it)->getId());
 	}
+    vectorOfIds.push_back(0); // finish at depot
 	return vectorOfIds;
 }
 bool Vehicle::addNode(Node* t_node, Node* neighbour = nullptr)
@@ -65,14 +67,16 @@ bool Vehicle::addNode(Node* t_node, Node* neighbour = nullptr)
 	return false;
 }
 
-Vehicle::Vehicle(Node* t_customer1)
+Vehicle::Vehicle(int t_capacityMax, Node* t_customer1)
 {
+    capacityMax=t_capacityMax;
 	capacity = 0;
 	addNode(t_customer1);
 }
 
-Vehicle::Vehicle(Node* t_customer1, Node* t_customer2)
+Vehicle::Vehicle(int t_capacityMax, Node* t_customer1, Node* t_customer2)
 {
+    capacityMax=t_capacityMax;
 	capacity = 0;
 	addNode(t_customer1);
 	addNode(t_customer2);

@@ -30,7 +30,7 @@ CVRP_Solution* CW_Solver::solve(const CVRP_instance& instance)
 	}
 
 	std::sort(m_list_saving.begin(), m_list_saving.end(), std::greater<Saving>());
-//	show_savings(); // IF DISPLAY
+//    show_savings(); // IF DISPLAY
 
 	int numberOfCustomer = instance.get_number_of_customers();
 	//std::vector<Vehicle*> list_vehicles;
@@ -44,11 +44,11 @@ CVRP_Solution* CW_Solver::solve(const CVRP_instance& instance)
 		if (instance.getNodeByIndex(id_cust_1)->isAvailable() && instance.getNodeByIndex(id_cust_2)->isAvailable())
 		{
 			int sumDemands = instance.getNodeByIndex(id_cust_1)->getDemand() + instance.getNodeByIndex(id_cust_2)->getDemand();
-			if (sumDemands > Vehicle::capacityMax)
+            if (sumDemands > instance.getMaxCapacityPerVehicle())
 			{
 				continue;
 			}
-			Vehicle* el = new Vehicle(instance.getNodeByIndex(id_cust_1), instance.getNodeByIndex(id_cust_2));
+            Vehicle* el = new Vehicle(instance.getMaxCapacityPerVehicle(),instance.getNodeByIndex(id_cust_1), instance.getNodeByIndex(id_cust_2));
 			solution->add_vehicle(el);
 			numberOfCustomer -= 2;
 		}
@@ -73,7 +73,7 @@ CVRP_Solution* CW_Solver::solve(const CVRP_instance& instance)
 	while (numberOfCustomer > 0)
 	{
 		if (instance.getNodeByIndex(i)->isAvailable()) {
-			Vehicle* el = new Vehicle(instance.getNodeByIndex(i));
+            Vehicle* el = new Vehicle(instance.getMaxCapacityPerVehicle(), instance.getNodeByIndex(i));
 			solution->add_vehicle(el);
 			numberOfCustomer -= 1;
 		}

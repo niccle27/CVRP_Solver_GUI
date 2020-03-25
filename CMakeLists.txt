@@ -2,7 +2,7 @@
 # To find the cmake version run
 # $ cmake --version
 cmake_minimum_required(VERSION 3.0)
-
+set (CMAKE_CXX_STANDARD 11)
 # Set the project name
 project (clarkeAndWright)
 

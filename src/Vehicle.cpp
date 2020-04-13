@@ -2,88 +2,129 @@
 #include "Node.h"
 #include <iostream>
 
-bool Vehicle::is_enough_capacity_left(int cap1, int cap2)
+bool Vehicle::is_enough_capacity_left(int capacity_to_add)
 {
-	int capToTest = cap1 + cap2;
-	return capacity + capToTest <= capacityMax;
+	return m_load + capacity_to_add <= m_maxLoad;
 }
 
 void Vehicle::print_list()const
 {
-	for (auto it = list_customers.begin(); it != list_customers.end(); ++it)
+	for (auto it = listIndexNodes.begin(); it != listIndexNodes.end(); ++it)
 	{
-		std::cout << (*it)->getId();
+		std::cout << (*it);
 		auto next = std::next(it, 1);
-		if (next != list_customers.end())
+		if (next != listIndexNodes.end())
 		{
 			std::cout << ",";
 		}
 	}
 }
-std::vector<int> Vehicle::getVectorOfIds()
+
+void Vehicle::set_customer_at_index(int index, int cust_index)
 {
-	std::vector<int> vectorOfIds;
-    vectorOfIds.push_back(0); // leave from depot
-	for (auto it = list_customers.begin(); it != list_customers.end(); ++it)
-	{
-		vectorOfIds.push_back((*it)->getId());
-	}
-    vectorOfIds.push_back(0); // finish at depot
-	return vectorOfIds;
-}
-bool Vehicle::addNode(Node* t_node, Node* neighbour = nullptr)
-{
-	if (!is_enough_capacity_left(t_node->getDemand()))
-	{
-		return false;
-	}
-	else
-	{
-		capacity += t_node->getDemand();
-	}
-	if (neighbour != nullptr)
-	{
-		Node* front_node = list_customers.front();
-		Node* back_node = list_customers.back();
-		if (neighbour == front_node)
-		{
-			list_customers.push_front(t_node);
-			t_node->setVehicle(this);
-			return true;
-		}
-		if (neighbour == back_node)
-		{
-			list_customers.push_back(t_node);
-			t_node->setVehicle(this);
-			return true;
-		}
-	}
-	else
-	{
-		list_customers.push_back(t_node);
-		t_node->setVehicle(this);
-		return true;
-	}
-	return false;
+	listIndexNodes[index] = cust_index;
 }
 
-Vehicle::Vehicle(int t_capacityMax, Node* t_customer1)
+void Vehicle::insert_customer_at_index(int index, int cust_index)
 {
-    capacityMax=t_capacityMax;
-	capacity = 0;
-	addNode(t_customer1);
+	listIndexNodes.insert(listIndexNodes.begin() + index, cust_index);
 }
 
-Vehicle::Vehicle(int t_capacityMax, Node* t_customer1, Node* t_customer2)
+void Vehicle::delete_customer_at_index(int index)
 {
-    capacityMax=t_capacityMax;
-	capacity = 0;
-	addNode(t_customer1);
-	addNode(t_customer2);
-	//list_customers.push_back(t_customer1);
-	//t_customer1->setVehicle(this);
-	//list_customers.push_back(t_customer2);
-	//t_customer2->setVehicle(this);
+	listIndexNodes.erase(listIndexNodes.begin() + index);
+}
+
+int Vehicle::popFront()
+{
+	int index = 0;
+	if (listIndexNodes.size() > 2) {
+		index = listIndexNodes[1];
+		listIndexNodes.erase(listIndexNodes.begin() + 1);
+	}
+	return index;
+}
+
+int Vehicle::popBack()
+{
+	int index = 0;
+	if (listIndexNodes.size() > 2) {
+		index = listIndexNodes[listIndexNodes.size()-2];
+		listIndexNodes.erase(listIndexNodes.end() - 2);
+	}
+	return index;
+}
+
+void Vehicle::add_customer_to_front(int index)
+{
+	listIndexNodes.insert(listIndexNodes.begin() + 1, index);
+}
+
+void Vehicle::add_customer_to_back(int index)
+{
+	listIndexNodes.insert(listIndexNodes.end() - 1, index);
+}
+
+void Vehicle::display(bool disp_load, bool disp_cost)const
+{
+	std::cout << "[";
+	for (auto it = listIndexNodes.begin(); it != listIndexNodes.end(); it++)
+	{
+		if (it != listIndexNodes.end() - 1) {
+			std::cout << (*it) << ",";
+		}
+		else std::cout << (*it);
+	}
+	std::cout << "]";
+	if (disp_load)
+	{
+		std::cout<< ", load: " << m_load <<"/"<< m_maxLoad;
+	}
+	if (disp_cost)
+	{
+		std::cout << ", cost: " << m_cost;
+	}
+	std::cout << std::endl;
+}
+
+int Vehicle::computeCost(std::vector<std::vector<int>> distance_matrix)
+{
+	int cost = 0;
+	for (int i = 0; i < listIndexNodes.size() - 1; i++)
+	{
+		//std::cout << distance_matrix[listIndexNodes[i]][listIndexNodes[i + 1]] << " + "  ;
+		cost += distance_matrix[listIndexNodes[i]][listIndexNodes[i + 1]];
+	}
+	return cost;
+}
+
+int Vehicle::computeLoad(std::vector<Node> list_nodes)
+{
+	int demand = 0;
+//    std::cout << "start:";
+	for (int i = 0; i < listIndexNodes.size() - 1; i++)
+	{
+//        std::cout << list_nodes[listIndexNodes[i]].getDemand() << "(" << listIndexNodes[i] <<"),";
+		demand += list_nodes[listIndexNodes[i]].getDemand();
+	}
+//    std::cout << "stop:";
+	return demand;
+}
+
+Vehicle::Vehicle(int t_maxLoad):
+	m_maxLoad(t_maxLoad)
+{
+	listIndexNodes.push_back(0); // start at depot
+	listIndexNodes.push_back(0); // end at depot
+}
+
+Vehicle::Vehicle(int t_maxLoad, int first_node, int first_node_load):
+	m_maxLoad(t_maxLoad)
+{
+	m_load += first_node_load;
+	listIndexNodes.push_back(0); // start at depot
+	listIndexNodes.push_back(first_node); // add first customer
+	listIndexNodes.push_back(0); // end at depot
 }
 
 Vehicle::~Vehicle()

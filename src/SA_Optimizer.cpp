@@ -33,7 +33,13 @@ CVRP_Solution SA_Optimizer::optimize(const CVRP_instance& instance, const CVRP_S
 			bool flag_move_done = false;
 			while (!flag_move_done)
 			{
-				move = rand() % 2;
+                if(current_solution.get_nb_of_vehicles() >= 2)
+                {
+                    move = rand() % 3;
+                }else{
+                    move=2;
+                }
+
 				if (current_solution.get_nb_of_vehicles() >= 2)
 				{
 					if (move == 0)

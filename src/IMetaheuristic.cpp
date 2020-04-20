@@ -158,9 +158,11 @@ bool IMetaheuristic::exchange_customers_in_vehicle()
 	int delta;
 	int index_cust_1, prev_cust_1, next_cust_1;
 	int index_cust_2, prev_cust_2, next_cust_2;
+//    int ctr=0;
 	do {
 		v_1 = pick_random_vehicle();
-	} while (v_1->get_number_of_customers()<2);
+//        ctr++;
+    } while (v_1->get_number_of_customers()<2);
 	do {
 		index_cust_1 = pick_random_customer_index(v_1);
 		index_cust_2 = pick_random_customer_index(v_1);
@@ -168,36 +170,46 @@ bool IMetaheuristic::exchange_customers_in_vehicle()
 	int cust1 = v_1->get_node_at_index(index_cust_1);
 	int cust2 = v_1->get_node_at_index(index_cust_2);
 	if ((index_cust_2 - index_cust_1) == 1)
-	{
+    {
 		prev_cust_2 = v_1->get_node_at_index(index_cust_1 - 1);
-		next_cust_2 = cust1;
-		prev_cust_1 = cust2;
 		next_cust_1 = v_1->get_node_at_index(index_cust_2 + 1);
+        delta = (get_distance_node2node(prev_cust_2, cust2) +
+                 get_distance_node2node(cust2, cust1) +
+                 get_distance_node2node(cust1, next_cust_1)) -
+                (get_distance_node2node(v_1->get_node_at_index(index_cust_1 - 1), cust1) +
+                 get_distance_node2node(cust1, cust2) +
+                 get_distance_node2node(cust2, v_1->get_node_at_index(index_cust_2 + 1)));
 	}
 	else if((index_cust_1 - index_cust_2) == 1){
-		prev_cust_2 = cust1;
 		next_cust_2 = v_1->get_node_at_index(index_cust_1 + 1);
 		prev_cust_1 = v_1->get_node_at_index(index_cust_2 - 1);
-		next_cust_1 = cust2;
+        delta = (get_distance_node2node(prev_cust_1, cust1) +
+                 get_distance_node2node(cust1, cust2) +
+                 get_distance_node2node(cust2, next_cust_2)) -
+                (get_distance_node2node(v_1->get_node_at_index(index_cust_2 - 1), cust2) +
+                 get_distance_node2node(cust2, cust1) +
+                 get_distance_node2node(cust1, v_1->get_node_at_index(index_cust_1 + 1)));
 	}
 	else {
 		prev_cust_2 = v_1->get_node_at_index(index_cust_1 - 1);
 		next_cust_2 = v_1->get_node_at_index(index_cust_1 + 1);
 		prev_cust_1 = v_1->get_node_at_index(index_cust_2 - 1);
 		next_cust_1 = v_1->get_node_at_index(index_cust_2 + 1);
+
+        delta = (get_distance_node2node(prev_cust_2, cust2) +
+                 get_distance_node2node(cust2, next_cust_2) +
+                 get_distance_node2node(prev_cust_1, cust1) +
+                 get_distance_node2node(cust1, next_cust_1)) -
+                (get_distance_node2node(v_1->get_node_at_index(index_cust_1 - 1), cust1) +
+                 get_distance_node2node(cust1, v_1->get_node_at_index(index_cust_1 + 1)) +
+                 get_distance_node2node(v_1->get_node_at_index(index_cust_2 - 1), cust2) +
+                 get_distance_node2node(cust2, v_1->get_node_at_index(index_cust_2 + 1)));
 	}
 
 	int demand_cust_1 = get_customer_at_index(index_cust_1).getDemand();
-	int demand_cust_2 = get_customer_at_index(index_cust_1).getDemand();
+    int demand_cust_2 = get_customer_at_index(index_cust_2).getDemand();
 
-	delta = (get_distance_node2node(prev_cust_2, cust2) +
-			 get_distance_node2node(cust2, next_cust_2) +
-			 get_distance_node2node(prev_cust_1, cust1) +
-			 get_distance_node2node(cust1, next_cust_1)) -
-			(get_distance_node2node(v_1->get_node_at_index(index_cust_1 - 1), cust1) +
-			 get_distance_node2node(cust1, v_1->get_node_at_index(index_cust_1 + 1)) +
-			 get_distance_node2node(v_1->get_node_at_index(index_cust_2 - 1), cust2) +
-			 get_distance_node2node(cust2, v_1->get_node_at_index(index_cust_2 + 1)));
+
 
 	//delta = (get_distance_node2node(v_1->get_node_at_index(index_cust_1 - 1), cust2) +
 	//	     get_distance_node2node(cust2, v_1->get_node_at_index(index_cust_1 + 1)) +
@@ -217,9 +229,9 @@ bool IMetaheuristic::exchange_customers_in_vehicle()
 //        std::cout << v_1->getLoad() << " == " << v_1->computeLoad(cvrp_instance.getList_nodes()) << std::endl;
 //        std::cout << v_1->get_cost() << " == " << v_1->computeCost(cvrp_instance.get_distance_matrix()) << std::endl;
 		//std::cout << (v_1->get_cost() == v_1->computeCost(cvrp_instance.get_distance_matrix())) << std::endl;
-		//std::cout << int(v_1->get_cost()) << " == " << int(v_1->computeCost(cvrp_instance.get_distance_matrix())) << std::endl;
-		//std::cout << (int(v_1->get_cost()) == int(v_1->computeCost(cvrp_instance.get_distance_matrix()))) << std::endl;
-		assert(v_1->get_cost() - v_1->computeCost(cvrp_instance.get_distance_matrix()) <= 1);
+//        std::cout << int(v_1->get_cost()) << " == " << int(v_1->computeCost(cvrp_instance.get_distance_matrix())) << std::endl;
+//        std::cout << (int(v_1->get_cost()) == int(v_1->computeCost(cvrp_instance.get_distance_matrix()))) << std::endl;
+        assert(v_1->get_cost() == v_1->computeCost(cvrp_instance.get_distance_matrix()));
 		assert(v_1->getLoad() == v_1->computeLoad(cvrp_instance.getList_nodes()));
 		//std::cout << "---------------------------------" << std::endl;		
 		//std::cout << "vehicule[" << v_1->get_id() << "] " << "Switch "<< cust1 <<" with "<< cust2 <<" delta : "<<delta<< std::endl;

@@ -80,39 +80,70 @@ int main(int argc, char** argv)
                          "max_capacity_per_vehicle":40
                        })foo";
 
-	std::string jsonParsingTest = R"foo({
-										"instance": {
-											"matrix": [
-												[0, 53439.93, 66243.33, 101140.32, 80878.78, 76125.92, 228593.45, 153909.84],
-												[53187.9, 0, 120665.17, 155562.17, 121421.05, 102055.23, 257109.63, 187312.05],
-												[64478.95, 119745.16, 0, 62767.51, 87224.01, 109898.08, 256280.02, 181596.41],
-												[98553.64, 153819.84, 53036.12, 0, 76040.94, 170782.16, 323365.28, 248681.66],
-												[80240.86, 121575.29, 105684.68, 76687.63, 0, 155433.05, 307900.59, 233216.97],
-												[77686.79, 100828.34, 109152.48, 170823.34, 158495.16, 0, 173244.41, 98560.8],
-												[230463.7, 268381.31, 256361.88, 323600.28, 311272.09, 174217.02, 0, 82881.33],
-												[154238.48, 185441.55, 180136.66, 247375.05, 235046.86, 97991.79, 82208.95, 0]
-											],
-											"demands": [13, 13, 13, 13, 13, 13, 13],
-											"max_capacity_per_vehicle": 40,
-                                            "m_nb_vehicles": 3
-										},
-										"heuristic": "CW",
-										"meta": "SA",
-										"meta_parameter": {
-											"t_isVerbose": false,
-                                            "temp_init": 50000,
-											"temp_final": 0.001,
-											"alpha": 0.999,
-                                            "beta": 1.01,
-											"n_iter_at_temp_init": 5,
-                                            "n_iter_without_impr": 10000000,
-											"low_cost_solution": 0
-										}
-									})foo";
+//	std::string jsonParsingTest = R"foo({
+//										"instance": {
+//											"matrix": [
+//												[0, 53439.93, 66243.33, 101140.32, 80878.78, 76125.92, 228593.45, 153909.84],
+//												[53187.9, 0, 120665.17, 155562.17, 121421.05, 102055.23, 257109.63, 187312.05],
+//												[64478.95, 119745.16, 0, 62767.51, 87224.01, 109898.08, 256280.02, 181596.41],
+//												[98553.64, 153819.84, 53036.12, 0, 76040.94, 170782.16, 323365.28, 248681.66],
+//												[80240.86, 121575.29, 105684.68, 76687.63, 0, 155433.05, 307900.59, 233216.97],
+//												[77686.79, 100828.34, 109152.48, 170823.34, 158495.16, 0, 173244.41, 98560.8],
+//												[230463.7, 268381.31, 256361.88, 323600.28, 311272.09, 174217.02, 0, 82881.33],
+//												[154238.48, 185441.55, 180136.66, 247375.05, 235046.86, 97991.79, 82208.95, 0]
+//											],
+//											"demands": [13, 13, 13, 13, 13, 13, 13],
+//											"max_capacity_per_vehicle": 40,
+//                                            "m_nb_vehicles": 3
+//										},
+//										"heuristic": "CW",
+//										"meta": "SA",
+//										"meta_parameter": {
+//											"t_isVerbose": false,
+//                                            "temp_init": 50000,
+//											"temp_final": 0.001,
+//											"alpha": 0.999,
+//                                            "beta": 1.01,
+//											"n_iter_at_temp_init": 5,
+//                                            "n_iter_without_impr": 10000000,
+//											"low_cost_solution": 0
+//										}
+//									})foo";
+    std::string jsonParsingTest = R"foo({
+                                  "instance": {
+                                      "max_capacity_per_vehicle": 400,
+                                      "nb_vehicles": 1,
+                                      "matrix": [
+                                          [0, 59153.52, 75664.73, 53436.48, 66223.34, 101120.33, 80874.43, 76125.97, 229451.75, 153909.67],
+                                          [59668.54, 0, 38625.32, 39302.41, 127146.11, 131419.47, 87667.84, 129049.54, 275157.34, 206833.23],
+                                          [75831.52, 39745.89, 0, 52172.45, 143309.08, 178206.08, 121743.85, 145212.52, 261444.7, 222996.22],
+                                          [53188.51, 38166.38, 50988.1, 0, 120666.08, 155563.08, 120164.34, 102055.79, 257134.53, 187312.38],
+                                          [64479.93, 125463.1, 141974.33, 119746.06, 0, 62767.5, 87223.99, 110398.28, 257138.89, 181596.81],
+                                          [98554.62, 131909.28, 176049, 153820.75, 53036.12, 0, 76040.94, 170782.16, 324223.84, 248681.77],
+                                          [87472.65, 87943.69, 120899.1, 121576.2, 105685.84, 76687.63, 0, 155432.94, 308758.72, 233216.64],
+                                          [77686.79, 129464.25, 145975.47, 100828.89, 109152.74, 170823.34, 158495.22, 0, 174102.66, 98560.58],
+                                          [231182.13, 275137.19, 262031.36, 268527.41, 257080.56, 324318.69, 311990.56, 174935.44, 0, 83599.52],
+                                          [154238.27, 206015.72, 222526.95, 185441.88, 180136.69, 247374.81, 235046.69, 97991.57, 83066.98, 0]
+                                      ],
+                                      "demands": [13, 13, 13, 13, 13, 13, 13, 13, 13]
+                                  },
+                                  "heuristic": "CW",
+                                  "meta": "SA",
+                                  "meta_parameter": {
+                                      "temp_init": 5000,
+                                      "temp_final": 0.001,
+                                      "alpha": 0.999,
+                                      "beta": 1.01,
+                                      "n_iter_at_temp_init": 5,
+                                      "n_iter_without_impr": 10000000,
+                                      "low_cost_threshold": 0
+                                  }
+                              })foo";
 
     bool isVerbose = false;
-	//auto jsonParse=json::parse(argv[1]);
-	auto jsonParse = json::parse(jsonParsingTest);
+
+    auto jsonParse=json::parse(argv[1]);
+//    auto jsonParse = json::parse(jsonParsingTest);
 	CVRP_Solution start_solution;
 	CVRP_Solution optimized_solution;
 
@@ -120,7 +151,7 @@ int main(int argc, char** argv)
 	std::vector<std::vector<int>> distanceMatrix = jsonParse["instance"]["matrix"];	
 	auto demands = jsonParse["instance"]["demands"];
 	int max_capacity_per_vehicle = jsonParse["instance"]["max_capacity_per_vehicle"];
-	int m_nb_vehicles = jsonParse["instance"]["m_nb_vehicles"];
+    int m_nb_vehicles = jsonParse["instance"]["nb_vehicles"];
 
 //    distanceMatrix={
 //        std::vector<int>{0  ,12 ,11  ,7  ,10 ,10 ,9  ,8  ,6  ,12} ,
@@ -180,7 +211,7 @@ int main(int argc, char** argv)
 			double beta = jsonParse["meta_parameter"]["beta"];
 			double n_iter_at_temp_init = jsonParse["meta_parameter"]["n_iter_at_temp_init"];
 			int n_iter_without_impr = jsonParse["meta_parameter"]["n_iter_without_impr"];
-			double low_cost_solution = jsonParse["meta_parameter"]["low_cost_solution"];
+            double low_cost_threshold = jsonParse["meta_parameter"]["low_cost_threshold"];
 
 			SA_Optimizer sa_optimizer(isVerbose,
 				temp_init,
@@ -189,7 +220,7 @@ int main(int argc, char** argv)
 				beta,
 				n_iter_at_temp_init,
 				n_iter_without_impr,
-				low_cost_solution);
+                low_cost_threshold);
 			optimized_solution = sa_optimizer.optimize(instance, start_solution);
 		}
 		else {
@@ -199,7 +230,7 @@ int main(int argc, char** argv)
 			double beta = jsonParse["meta_parameter"]["beta"];
 			double n_iter_at_temp_init = jsonParse["meta_parameter"]["n_iter_at_temp_init"];
 			int n_iter_without_impr = jsonParse["meta_parameter"]["n_iter_without_impr"];
-			double low_cost_solution = jsonParse["meta_parameter"]["low_cost_solution"];
+            double low_cost_threshold = jsonParse["meta_parameter"]["(low_cost_threshold)'("];
 
 			SA_Optimizer sa_optimizer(isVerbose,
 				temp_init,
@@ -208,7 +239,7 @@ int main(int argc, char** argv)
 				beta,
 				n_iter_at_temp_init,
 				n_iter_without_impr,
-				low_cost_solution);
+                low_cost_threshold);
 			optimized_solution = sa_optimizer.optimize(instance, start_solution);
         }
         if(isVerbose)

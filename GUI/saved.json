@@ -1,0 +1,152 @@
+[
+  {
+    "id": 0,
+    "isSelected": true,
+    "data": [
+      "Dépot",
+      13,
+      50.8510411296595,
+      4.35882568359375,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 1,
+    "isSelected": true,
+    "data": [
+      "Client 1",
+      13,
+      51.05348088381823,
+      3.856201171875,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 2,
+    "isSelected": true,
+    "data": [
+      "Client 2",
+      13,
+      51.04139389812637,
+      3.41949462890625,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 3,
+    "isSelected": true,
+    "data": [
+      "Client 3",
+      13,
+      50.84930707388861,
+      3.7188720703125,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 4,
+    "isSelected": true,
+    "data": [
+      "Client 4",
+      13,
+      50.83369767098071,
+      5.1470947265625,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 5,
+    "isSelected": true,
+    "data": [
+      "Client 5",
+      13,
+      51.14317120049778,
+      5.45745849609375,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 6,
+    "isSelected": true,
+    "data": [
+      "Client 6",
+      13,
+      51.2928411273273,
+      4.8394775390625,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 7,
+    "isSelected": true,
+    "data": [
+      "Client 7",
+      13,
+      50.306884231551166,
+      4.3121337890625,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 8,
+    "isSelected": true,
+    "data": [
+      "Client 8",
+      13,
+      49.27138884351881,
+      4.0264892578125,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  },
+  {
+    "id": 9,
+    "isSelected": true,
+    "data": [
+      "Client 9",
+      13,
+      49.742231602580716,
+      4.72412109375,
+      "Charleroi",
+      "rue de Dampremy",
+      40,
+      6000,
+      "Belgium"
+    ]
+  }
+]

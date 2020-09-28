@@ -1,0 +1,152 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div id="map" style="height: 100%;width: 100%;position: fixed"></div>
+  </div>
+</div>
+
+<script type="text/javascript" src="Assets/Popper/popper.min.js"></script>
+<script type="text/javascript" src="Assets/JQuery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="Assets/Bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="Assets/leaflet/leaflet.js"></script>
+<script type="text/javascript" src="./Assets/leaflet/Plugin/Polyline.encoded.js"></script>
+<script>
+ /* var map = L.map('map').setView([50.453996,3.952159], 20); */
+ var map = L.map('map');
+
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+ }).addTo(map);
+
+ function onEachFeature(feature, layer) {
+   // does this feature have a property named popupContent?
+   if (feature.properties && feature.properties.popupContent) {
+     layer.bindPopup(feature.properties.popupContent);
+   }
+ }
+
+ var list_clients_points={
+   "type": "FeatureCollection",
+   "features": [
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           4.35882568359375,
+           50.8510411296595
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           3.856201171875,
+           51.05348088381823
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           3.7188720703125,
+           50.84930707388861
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           3.41949462890625,
+           51.04139389812637
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           5.1470947265625,
+           50.83369767098071
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           5.45745849609375,
+           51.14317120049778
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           4.8394775390625,
+           51.2928411273273
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           4.72412109375,
+           49.742231602580716
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           4.3121337890625,
+           50.306884231551166
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {},
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           3.9715576171875004,
+           49.57866438815706
+         ]
+       }
+     }
+   ]
+ };
+
+ var list_clients_points_layer = L.geoJSON(list_clients_points).addTo(map);
+
+ var allLayer = L.featureGroup([list_clients_points_layer]);
+
+ map.fitBounds(allLayer.getBounds())
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Clément NICOLAS">
+    <link rel="stylesheet" href="../Assets/Bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../Assets/leaflet/leaflet.css" type="text/css">
+    <style>
+     #map{
+       height: 100%;
+       width: 100%;
+       position: fixed;
+     }
+    </style>
+    <title>OpenVRP</title>
+  </head>
+  <body>
+    <!-- <script type="text/javascript" src="../Assets/v6.1.1-dist/ol.js"></script> -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a href="#"><button class="btn btn-info" style="margin-right:10px;">Gérer les noeuds</button></a>
+            <!-- <a class="nav-link" href="#">Gérer les noeuds <span class="sr-only">(current)</span></a> -->
+          </li>
+          <li class="nav-item">
+            <a href="#"><button class="btn btn-info" style="margin-right:10px;">Afficher la carte</button></a>
+            <!-- <a class="nav-link" href="#">Afficher la carte</a> -->
+          </li>
+          <li class="nav-item">
+            <a href="#"><button class="btn btn-info" style="margin-right:10px;">Réglage</button></a>
+            <!-- <a class="nav-link" href="#">Réglage</a> -->
+          </li>
+        </ul>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a href="#"></a><button class="btn btn-info" style="margin-right:10px;">A propos</button></a>
+      <!-- <a class="nav-link" href="#">A propos</a> -->
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../Assets/Popper/popper.min.js"></script>
+    <script type="text/javascript" src="../Assets/JQuery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../Assets/Bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../Assets/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="./../Assets/leaflet/Plugin/Polyline.encoded.js"></script>
+    <script>
+     var map = L.map('map').setView([50.453996,3.952159], 20);
+
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+     }).addTo(map);
+
+     function onEachFeature(feature, layer) {
+       // does this feature have a property named popupContent?
+       if (feature.properties && feature.properties.popupContent) {
+         layer.bindPopup(feature.properties.popupContent);
+       }
+     }
+
+     var depot_dr = {
+       "type": "Feature",
+       "properties": {
+         "popupContent": "<strong>Adresse:</strong> rue du blablabla"
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           3.9523422718048096,
+           50.45451899018552
+         ]
+       }
+     }
+
+     var list_clients_trajets=[
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.9500463008880615,
+             50.45572805258749
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.951966762542724,
+             50.45694391468691
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.9518702030181885,
+             50.45586466786493
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.9494240283966064,
+             50.45382905937426
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.949756622314453,
+             50.452469661303354
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.951054811477661,
+             50.45337137694826
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.9558720588684078,
+             50.4551201098185
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+           "type": "Point",
+           "coordinates": [
+             3.9553892612457275,
+             50.45369926928534
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties":
+         {
+           "vehicule":"1"
+         },
+         "geometry": {
+           "type": "LineString",
+           "coordinates": [
+             [
+               3.9554107189178467,
+               50.45373342460641
+             ],
+             [
+               3.95233154296875,
+               50.4545053282869
+             ],
+             [
+               3.9558827877044678,
+               50.45515426411381
+             ],
+             [
+               3.955432176589966,
+               50.453767579902824
+             ]
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties":
+         {
+           "vehicule":"2"
+         },
+         "geometry": {
+           "type": "LineString",
+           "coordinates": [
+             [
+               3.952374458312988,
+               50.45451899018552
+             ],
+             [
+               3.9518916606903076,
+               50.45586466786493
+             ],
+             [
+               3.951966762542724,
+               50.456984898258156
+             ],
+             [
+               3.9500141143798824,
+               50.455796360275535
+             ],
+             [
+               3.9522993564605717,
+               50.4545053282869
+             ]
+           ]
+         }
+       },
+       {
+         "type": "Feature",
+         "properties":
+         {
+           "vehicule":"3"
+         },
+         "geometry": {
+           "type": "LineString",
+           "coordinates": [
+             [
+               3.9523208141326904,
+               50.4544984973361
+             ],
+             [
+               3.9494240283966064,
+               50.45386321460164
+             ],
+             [
+               3.949745893478393,
+               50.45251747998877
+             ],
+             [
+               3.9510762691497803,
+               50.45345335024559
+             ],
+             [
+               3.952310085296631,
+               50.45447117352311
+             ]
+           ]
+         }
+       }
+     ]
+     depot_layer = L.geoJSON(depot_dr,{onEachFeature:onEachFeature}).addTo(map);
+     list_clients_layer = L.geoJSON(list_clients_trajets, {
+       style: function(feature) {
+         switch (feature.properties.vehicule) {
+           case '1': return {color: "#ff0000"};
+           case '2': return {color: "#0000ff"};
+           case '3': return {color: "#00ff00"};
+         }
+       }
+     }).addTo(map);
+     var encoded = "wg}rHi~bWBAjB}@jByArAiALQ?c@x@OrAKnDY@?f@EHAAUCcBCoABMDQ?KV}E?ADaBU[SYC@WKyC}DwAyAUWSWqGyIMQ_@]WKYEOAY?w@DmIt@wBR]BaAH}Jx@_APw@d@Y\\Yb@S`@CFGPGPUnAQ`BMzAa@tE]bEg@~FFnBE`@A\\jAa@d@QpCaAXGt@JJBf@X|@b@r@p@v@pARXl@r@`@h@JJRRKXADc@vAY`ABB@BIFJn@JG@FRMDPf@_@|@w@Xc@"
+
+     var polyline_layer = L.Polyline.fromEncoded(encoded,
+                                                 {weight: 3,
+                                                  color: '#f30'}).addTo(map);
+     var allLayer = L.featureGroup([depot_layer,list_clients_layer,polyline_layer]);
+
+     // list_clients_layer = L.geoJSON(list_clients_trajets).addTo(map);
+     map.fitBounds(allLayer.getBounds())
+    </script>
+  </body>
+</html>

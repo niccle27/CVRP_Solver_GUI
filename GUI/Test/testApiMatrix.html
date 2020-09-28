@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+     /* var metric = "duration" */
+     var metric = "distance"
+     let request = new XMLHttpRequest();
+     request.open('POST', "https://api.openrouteservice.org/v2/matrix/driving-car",false);
+     request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+     request.setRequestHeader('Content-Type', 'application/json');
+     request.setRequestHeader('Authorization', '5b3ce3597851110001cf6248703754048738463ba206b43ed13658a3');
+     bodyObject = {};
+     listCoordinates = [[9.70093,48.477473],[9.207916,49.153868],[37.573242,55.801281],[115.663757,38.106467]];
+     bodyObject["locations"]=listCoordinates;
+     bodyObject["metrics"]=[metric];
+     console.log(bodyObject);
+     request.send(JSON.stringify(bodyObject));
+     if (request.status === 200) {
+       /* console.log(request.responseText); */
+       response = JSON.parse(request.responseText);
+       console.log(response);
+       var coordinates = new Coordinates(arrayCoord[0],arrayCoord[1]);
+       /* return coordinates; */
+     }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+     class Coordinates {
+       constructor(long, lat) {
+         this.long = long;
+         this.lat = lat;
+       }
+     }
+
+     function getLatLong(adress) {
+       var request = new XMLHttpRequest();
+       request.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf6248703754048738463ba206b43ed13658a3&text='+encodeURIComponent(adress), false);
+       request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+       request.send();
+       if (request.status === 200) {
+         /* console.log(request.responseText); */
+         arrayCoord = JSON.parse(request.responseText)["features"][0]["geometry"]["coordinates"];
+       var coordinates = new Coordinates(arrayCoord[0],arrayCoord[1]);
+       return coordinates;
+     }
+       else{
+         return null;
+       }
+     }
+     var a = getLatLong("rue du faubourg 70 montigny le tilleul 6110 Belgique")
+     console.log(a);
+    </script>
+  </body>
+</html>

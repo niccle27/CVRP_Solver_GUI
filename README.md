@@ -1,6 +1,4 @@
-# VRP_TFE
-
-CVRP Solver with GUI 
+# CVRP Solver with GUI
 
 Based on:
  - nlohmann json 
